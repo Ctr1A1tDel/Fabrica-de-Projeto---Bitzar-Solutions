@@ -61,6 +61,7 @@ export default [
       'react/jsx-uses-vars': 'error',
       'import/no-unresolved': 'error',
       'import/named': 'error',
+      'react/prop-types': 'off',
     },
     settings: {
       react: { version: 'detect' },
