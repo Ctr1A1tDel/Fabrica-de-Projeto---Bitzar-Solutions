@@ -1,31 +1,48 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+
 import { Box, Grid } from '@mui/material'
 import { FormProvider, useForm } from 'react-hook-form'
-import { AttachedItems, PromptField } from './components'
-import styled from '@emotion/styled'
+import Chart from 'react-apexcharts'
 
-const MainContainer = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100vh',
-  width: '100%',
-})
+import {
+  AttachedItems,
+  ChatMessages,
+  InputContainer,
+  MainBox,
+  MainContainer,
+  PromptField,
+} from './components'
 
-const InputContainer = styled(Box)({
-  width: '100%',
-  maxWidth: '80%',
-  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  borderRadius: '16px',
-  border: '1px solid #3F3F3F',
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden',
-  '&:focus-within': {
-    borderColor: 'rgba(255, 255, 255, 0.6)',
-  },
-})
+// Mock Data para testes
+const incomingChartComponent = (
+  <Chart
+    options={{
+      chart: {
+        id: 'ia-generated-bar',
+        theme: { mode: 'dark' },
+        background: 'transparent',
+      },
+      xaxis: { categories: ['Jan', 'Fev', 'Mar', 'Abr'] },
+      colors: ['#00E39E'],
+    }}
+    series={[{ name: 'Performance', data: [44, 55, 41, 67] }]}
+    type="bar"
+    width="100%"
+  />
+)
 
 const Chat = () => {
+  // Mock Data para testes
+  const [chatHistory] = useState([
+    { role: 'user', content: 'Olá, gere um gráfico de performance deste ano.' },
+    { role: 'ia', content: 'Claro! Aqui estão os dados processados:' },
+    {
+      role: 'ia',
+      content: incomingChartComponent,
+    },
+    { role: 'ia', content: 'Espero que isso ajude na sua análise.' },
+  ])
+
   const fileInputRef = useRef(null)
 
   const formMethods = useForm({
@@ -36,20 +53,19 @@ const Chat = () => {
 
   return (
     <MainContainer>
-      <Box
-        sx={{
-          flexGrow: 1,
-          overflowY: 'auto',
-          p: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Grid size={{ xs: 12, md: 8 }} sx={{ width: '100%', maxWidth: '80%' }}>
-          <Box sx={{ color: '#fff' }}>Conteúdo do Chat</Box>
+      <MainBox>
+        <Grid
+          container
+          sx={{
+            width: '100%',
+            maxWidth: '80%',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <ChatMessages chatHistory={chatHistory} />
         </Grid>
-      </Box>
+      </MainBox>
 
       <Box
         sx={{
