@@ -1,3 +1,7 @@
+using Api.Domain.Ports;
+
+builder.Services.AddScoped<IPythonService, PythonService>();
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

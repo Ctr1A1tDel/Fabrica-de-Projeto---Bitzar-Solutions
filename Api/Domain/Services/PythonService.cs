@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using System.Text.Json;
+using Api.Domain.Ports;
 
-public class PythonService
+public class PythonService : IPythonService
 {
     private readonly string _pythonPath  = "python";    
     private readonly string _scriptPath  = "data-prep/main.py";

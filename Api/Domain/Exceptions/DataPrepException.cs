@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.Controller
+namespace Api.Domain.Exceptions
 {
-    public class DashbordController
+    public class DataPrepException
     {
         
     }
